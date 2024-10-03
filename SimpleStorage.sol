@@ -1,16 +1,33 @@
+// I'm a comment!
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.25;
 
+pragma solidity 0.8.19;
 
-contract SimpleColor {
-    string favColor = "Yellow";
+// pragma solidity ^0.8.0;
+// pragma solidity >=0.8.0 <0.9.0;
 
-    function setFavColor(string memory _newFavColor)public{
-        favColor =_newFavColor;
+contract SimpleStorage {
+    uint256 myFavoriteNumber;
+
+    struct Person {
+        uint256 favoriteNumber;
+        string name;
+    }
+    // uint256[] public anArray;
+    Person[] public listOfPeople;
+
+    mapping(string => uint256) public nameToFavoriteNumber;
+
+    function store(uint256 _favoriteNumber) public {
+        myFavoriteNumber = _favoriteNumber;
     }
 
-    function getFavColor () public view returns(string memory){
-        return favColor;
+    function retrieve() public view returns (uint256) {
+        return myFavoriteNumber;
     }
-    
-} 
+
+    function addPerson(string memory _name, uint256 _favoriteNumber) public {
+        listOfPeople.push(Person(_favoriteNumber, _name));
+        nameToFavoriteNumber[_name] = _favoriteNumber;
+    }
+}
